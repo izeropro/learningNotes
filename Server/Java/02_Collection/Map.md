@@ -36,3 +36,5 @@
 ## HashTable(了解)
 1. 和 HashMap 类似，但它是线程安全的，这意味着同一时刻多个线程同时写入 HashTable 不会导致数据不一致。它是遗留类，不应该去使用它，而是使用 ConcurrentHashMap 来支持线程安全，ConcurrentHashMap 的效率会更高，因为 ConcurrentHashMap 引入了分段锁。
    
+## 面试题
+[Map面试题](./Map_question-01.md)

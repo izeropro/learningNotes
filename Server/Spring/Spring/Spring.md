@@ -76,17 +76,17 @@ AOP(Aspect-Oriented Programming:面向切面编程)
 
 # Spring事务传播机制
 ## 一、pring事务失效的几种场景以及原因
-1. 抛出编译异常 ，事务只能捕捉运行时异常和error
+1. 抛出编译异常 ，事务只能捕捉运行时异常和error  
     **解决方案**： 配置rollbackFor eg. 配置@Transactional(rollbackFor = Exception.class)
 2. 选用了错误的事务传播机制 例如 @Transactional(propagation = Propagation.NOT_SUPPORTED)
     有事务挂起 ，无事务就以非事务的方式执行。
-3. **业务自身捕捉到异常[try catch finally] 而不是通过抛出异常交给类处理**
-    因为spring事务只有捕捉到了业务抛出去的异常，才能进行后续的处理，如果业务自己捕获了异常，则事务无法感知。
+3. **业务自身捕捉到异常[try catch finally] 而不是通过抛出异常交给类处理**  
+    因为spring事务只有捕捉到了业务抛出去的异常，才能进行后续的处理，如果业务自己捕获了异常，则事务无法感知。  
     **解决方案**：将异常原样抛出 尽量不要在业务方法中使用try...catch来捕获你的异常，防止影响了事务。
-4. **跨了线程的事务**
-    原因：如果事务方法内，开启了新线程去执行其他事务方法也是不受当前事务方法控制的。因为不同线程拥有的**threadlocal** 不一样。
+4. **跨了线程的事务**  
+    原因：如果事务方法内，开启了新线程去执行其他事务方法也是不受当前事务方法控制的。因为不同线程拥有的**threadlocal** 不一样。  
     所以：当你需要明确开启新线程，请分开处理。
-5. @Transactional放在非public方法上。
+5. @Transactional放在非public方法上。  
     原因：AbstractFallbackTransactionAttributeSource类调用computeTransactionAttribute()时，过滤了非public方法上事务配置信息（相当于没有配置无事务运行机制）。
 
 ## 二、Spring事务传播机制
